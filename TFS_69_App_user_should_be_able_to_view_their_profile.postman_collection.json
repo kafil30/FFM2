@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "82b0dc87-39b9-41c9-ae54-3900824424c0",
+		"name": "TFS_69_App_user_should_be_able_to_view_their_profile",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Positive",
+			"item": [
+				{
+					"name": "1.0_TFS_58_App able to login the FFM mobile app",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "337e262c-0973-4452-9d2b-bcaf254b8841",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Response time is less than 600ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(600);\r",
+									"});\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"auth_token_app_user\", jsonData.auth_token);\r",
+									"\r",
+									"var schema = {\r",
+									"    \"$schema\": \"http://json-schema.org/draft-07/schema\",\r",
+									"    \"$id\": \"http://example.com/example.json\",\r",
+									"    \"type\": \"object\",\r",
+									"    \"title\": \"The root schema\",\r",
+									"    \"description\": \"The root schema comprises the entire JSON document.\",\r",
+									"    \"default\": {},\r",
+									"    \"examples\": [\r",
+									"        {\r",
+									"            \"message\": \"Successfully registered dashboard user ki43500.\",\r",
+									"            \"status\": \"success\"\r",
+									"        }\r",
+									"    ],\r",
+									"    \"required\": [\r",
+									"        \"message\",\r",
+									"        \"status\"\r",
+									"    ],\r",
+									"    \"properties\": {\r",
+									"        \"message\": {\r",
+									"            \"$id\": \"#/properties/message\",\r",
+									"            \"type\": \"string\",\r",
+									"            \"title\": \"The message schema\",\r",
+									"            \"description\": \"An explanation about the purpose of this instance.\",\r",
+									"            \"default\": \"\",\r",
+									"            \"examples\": [\r",
+									"                \"Successfully registered dashboard user ki43500.\"\r",
+									"            ]\r",
+									"        },\r",
+									"        \"status\": {\r",
+									"            \"$id\": \"#/properties/status\",\r",
+									"            \"type\": \"string\",\r",
+									"            \"title\": \"The status schema\",\r",
+									"            \"description\": \"An explanation about the purpose of this instance.\",\r",
+									"            \"default\": \"\",\r",
+									"            \"examples\": [\r",
+									"                \"success\"\r",
+									"            ]\r",
+									"        }\r",
+									"    },\r",
+									"    \"additionalProperties\": true\r",
+									"}\r",
+									"\r",
+									"\r",
+									"tests[\"valid schema\"] = tv4.validate(jsonData, schema);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone_number\": \"3475176431\",\r\n    \"firebase_id\": \"firebase_ididid\",\r\n    \"secret_text\": \"the_super_secret_text\",\r\n    \"phone_number_int\": \"3475176431\",\r\n    \"iso_code\": \"US\"\r\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/field-force/auth/user-login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"field-force",
+								"auth",
+								"user-login"
+							]
+						},
+						"description": "BRD:\r\nApp user should be able to login the FFM mobile app\r\n\r\nObjective: As an App user, I want to login to the FFM app so that I can avail services available to me\r\n\r\nSE: Shiblu Ahmad\r\nPO: Pranto Majumder\r\nQA: Kafil Ahmed\r\nReviewer: Pranto Majumder\r\n\r\nAcceptance Criteria:\r\nI should be able to login on the FFM mobile app through my registered contact number.\r\nI will get an OTP code to verify my number. \r\nDependency: \r\nUsers should be registered from the company admin panel.  \r\n\r\n\r\nMethod: POST \r\n\r\n{\r\n    \"phone_number\": \"3475176431\",\r\n    \"firebase_id\": \"firebase_ididid\",\r\n    \"secret_text\": \"the_super_secret_text\",\r\n    \"phone_number_int\": \"3475176431\",\r\n    \"iso_code\": \"US\"\r\n}\r\nExpected Result: \r\nShould Return with auth Token{\r\n    \"auth_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDU5ODQyMzYsImlhdCI6MTYwNTM3OTQzNiwic3ViIjo0MzMsIm1vZHVsZXMiOltdLCJ1c2VyX3R5cGUiOiJHZW5lcmFsIiwibmFtZSI6IkZpcnN0IE5hbWUgTGFzdCBOYW1lIiwicGhvbmVfbnVtYmVyIjoiMzQ3NTE3NjQzMSIsIm1lbWJlcl90eXBlIjozfQ.nHViBO-HXGavBvCCbNPaZXGFS2Ac7bBNH16jO2W0NhM\",\r\n    \"message\": \"Successfully logged in.\",\r\n    \"status\": \"success\"\r\n}\r\nActual Result: \r\nAuth Return Got{\r\n    \"auth_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDU5ODQyMzYsImlhdCI6MTYwNTM3OTQzNiwic3ViIjo0MzMsIm1vZHVsZXMiOltdLCJ1c2VyX3R5cGUiOiJHZW5lcmFsIiwibmFtZSI6IkZpcnN0IE5hbWUgTGFzdCBOYW1lIiwicGhvbmVfbnVtYmVyIjoiMzQ3NTE3NjQzMSIsIm1lbWJlcl90eXBlIjozfQ.nHViBO-HXGavBvCCbNPaZXGFS2Ac7bBNH16jO2W0NhM\",\r\n    \"message\": \"Successfully logged in.\",\r\n    \"status\": \"success\"\r\n}\r\nTest Code: 200 OK\r\nTest Result: Pass"
+					},
+					"response": []
+				},
+				{
+					"name": "TFS_69_1.0_App user should be able to view their profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token_app_user}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_management}} /api/v1/field-force/users/general/user/profile/{{app_user_id}}",
+							"host": [
+								"{{user_management}} "
+							],
+							"path": [
+								"api",
+								"v1",
+								"field-force",
+								"users",
+								"general",
+								"user",
+								"profile",
+								"{{app_user_id}}"
+							]
+						},
+						"description": "BRD:\r\nApp user should be able to view their profile\r\n\r\nObjective: \r\nAs an app user, I want to see my profile info in FFM mobile app so that I can tell my admin if any info missing or anything to change\r\n\r\nSE: Shiblu Ahmad\r\nPO: Pranto Majumder\r\nQA: Kafil Ahmed\r\nReviewer: Pranto Majumder\r\n\r\nAcceptance Criteria:\r\nI can view my profile on the FFM mobile app.\r\nI can see my name, department, designation information.\r\nDependency: \r\nRegistered app users should be login to the FFM mobile app\r\n\r\nExpected Result:\r\n{\r\n    \"status\": true,\r\n    \"statusCode\": 302,\r\n    \"data\": {\r\n        \"id\": 433,\r\n        \"registered_on\": \"2020-11-13T00:26:28.355Z\",\r\n        \"first_name\": \"First Name\",\r\n        \"last_name\": \"Last Name\",\r\n        \"phone_number\": \"3475176431\",\r\n        \"nid\": \"98728364729374\",\r\n        \"profile_photo\": \"https://randomuser.me/api/portraits/lego/5.jpg\",\r\n        \"email\": null,\r\n        \"designation\": \"QA Guy\",\r\n        \"department\": \"Tech\",\r\n        \"member_type\": 3,\r\n        \"company_id\": 734,\r\n        \"createdAt\": \"2020-11-13T00:26:28.355Z\",\r\n        \"updatedAt\": \"2020-11-13T00:26:28.355Z\"\r\n    }\r\n}\r\n\r\n\r\nActula Result:\r\n{\r\n    \"status\": true,\r\n    \"statusCode\": 302,\r\n    \"data\": {\r\n        \"id\": 433,\r\n        \"registered_on\": \"2020-11-13T00:26:28.355Z\",\r\n        \"first_name\": \"First Name\",\r\n        \"last_name\": \"Last Name\",\r\n        \"phone_number\": \"3475176431\",\r\n        \"nid\": \"98728364729374\",\r\n        \"profile_photo\": \"https://randomuser.me/api/portraits/lego/5.jpg\",\r\n        \"email\": null,\r\n        \"designation\": \"QA Guy\",\r\n        \"department\": \"Tech\",\r\n        \"member_type\": 3,\r\n        \"company_id\": 734,\r\n        \"createdAt\": \"2020-11-13T00:26:28.355Z\",\r\n        \"updatedAt\": \"2020-11-13T00:26:28.355Z\"\r\n    }\r\n}\r\n\r\n\r\nMethod: GET\r\n\r\nTest Code: 200 OK\r\nTest Result: Pass\r\n"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Negative",
+			"item": [
+				{
+					"name": "TFS_69_1.0_App user should be able to view their profile without auth token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_management}} /api/v1/field-force/users/general/user/profile/{{app_user_id}}",
+							"host": [
+								"{{user_management}} "
+							],
+							"path": [
+								"api",
+								"v1",
+								"field-force",
+								"users",
+								"general",
+								"user",
+								"profile",
+								"{{app_user_id}}"
+							]
+						},
+						"description": "BRD:\r\nApp user should be able to view their profile\r\n\r\nObjective: \r\nTest request by leaving \"auth token\" empty\r\n\r\nSE: Shiblu Ahmad\r\nPO: Pranto Majumder\r\nQA: Kafil Ahmed\r\nReviewer: Pranto Majumder\r\n\r\nAcceptance Criteria:\r\nI can view my profile on the FFM mobile app.\r\nI can see my name, department, designation information.\r\nDependency: \r\nRegistered app users should be login to the FFM mobile app\r\n\r\nExpected Result:\r\n{\r\n    \"code\": 403,\r\n    \"timestamp\": \"11/14/2020\",\r\n    \"path\": \"/api/v1/field-force/users/general/user/profile/433\",\r\n    \"method\": \"GET\",\r\n    \"message\": \"Forbidden\"\r\n}\r\n\r\n\r\nActula Result:\r\n{\r\n    \"code\": 403,\r\n    \"timestamp\": \"11/14/2020\",\r\n    \"path\": \"/api/v1/field-force/users/general/user/profile/433\",\r\n    \"method\": \"GET\",\r\n    \"message\": \"Forbidden\"\r\n}\r\n\r\nMethod: GET\r\n\r\nTest Code: 404 Not Found\r\nTest Result: Pass\r\n"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
